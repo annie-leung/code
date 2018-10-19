@@ -1,0 +1,42 @@
+--==========================================================================================
+-- Author:      Annie Leung
+-- Create date: 17 January 2018
+-- Description: Use the following script to copy the variables from one environment to 
+--              another for an SSIS catalog repository.
+-- Last Modified: dd/MM/yyyy - XX - <Change description>
+--
+-- Run Instructions:
+--   1. In the SSIS catalog, create an empty environment to copy the variables to
+--   2. Find the Identifiers under Environment Properties > General page > Identifier in the SSIS Catalog
+--   3. Update the @copy_from_env and @copy_to_env variables in the script
+--   4. Run the script
+-- ==========================================================================================
+Use SSISDB
+GO
+
+DECLARE @copy_from_env AS INT = 0 --update to source environment
+DECLARE @copy_to_env   AS INT = 0 --update to destination environment
+
+INSERT INTO [internal].[environment_variables] 
+(
+     [environment_id] 
+    ,[name] 
+    ,[description] 
+    ,[type] 
+    ,[sensitive] 
+    ,[value] 
+    ,[sensitive_value] 
+    ,[base_data_type]
+) 
+SELECT @copy_to_env as environment_id --New Environment ID 
+      ,[name] 
+      ,[description] 
+      ,[type] 
+      ,[sensitive] 
+      ,[value] 
+      ,[sensitive_value] 
+      ,[base_data_type] 
+FROM  [SSISDB].[internal].[environment_variables] 
+WHERE environment_id = @copy_from_env  --Previous Environment ID 
+GO
+
