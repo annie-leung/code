@@ -7,6 +7,6 @@ This Github repository contains code and script samples for every day use.
 
 [SQL Repository](/sql)
 
-[Powershell Repository](../powershell)
+[Powershell Repository](/powershell)
 
-[SSIS Expression Repository](../ssis)
+[SSIS Expression Repository](/ssis)
